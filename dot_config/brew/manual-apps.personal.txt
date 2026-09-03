@@ -1,0 +1,27 @@
+1password
+alttab
+blip
+canva
+chequered
+clipy
+dbeaver
+extractor
+feedly
+fork
+gemini
+iterm
+itermbrowserplugin
+keepingyouawake
+latest
+line
+mpv
+onedrive
+rightlang
+runcatneo
+safari.app -> ../system/cryptexes/app/system/applications/safari
+shottr
+stats
+telegram
+thaihub
+todoist
+transmission

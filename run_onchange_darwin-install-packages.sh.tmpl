@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# บรรทัดนี้ใช้เช็คว่าเนื้อหาไฟล์ของ role นี้เปลี่ยนหรือไม่ ถ้าไม่เปลี่ยนจะไม่รัน
+# Brewfile hash: {{ include (printf "dot_config/brew/Brewfile.%s" .role) | sha256sum }}
+
+echo "==> Syncing Homebrew packages for role: {{ .role }}..."
+brew bundle --no-lock --file="${HOME}/.config/brew/Brewfile.{{ .role }}"

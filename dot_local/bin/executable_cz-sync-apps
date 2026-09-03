@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ดึงค่า role ปัจจุบัน
+ROLE=$(chezmoi data | grep -o '"role": "[^"]*' | cut -d'"' -f4)
+BREW_DIR="$(chezmoi source-path)/dot_config/brew"
+
+if [[ -z "$ROLE" ]]; then
+  echo "Error: Machine role not found."
+  exit 1
+fi
+
+mkdir -p "$BREW_DIR"
+
+echo "==> Updating Brewfile.${ROLE}..."
+brew bundle dump --force --file="${BREW_DIR}/Brewfile.${ROLE}"
+
+echo "==> Updating manual-apps.${ROLE}.txt..."
+comm -23 \
+  <(ls -1 /Applications ~/Applications 2>/dev/null | grep '\.app$' | sed 's/\.app$//' | tr '[:upper:]' '[:lower:]' | sort -u) \
+  <(brew list --cask 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u) \
+  > "${BREW_DIR}/manual-apps.${ROLE}.txt"
+
+echo "==> Sync completed for $ROLE. Check changes with: chezmoi cd && git status"
