@@ -1,27 +1,41 @@
 1password
+1password for safari
+adguard mini
 alttab
+antigravity ide
 blip
+brave browser
 canva
 chequered
 clipy
+command x
 dbeaver
+delete apps
+ea app
 extractor
 feedly
 fork
 gemini
+google chrome
+google docs
+google drive
+google sheets
+google slides
 iterm
 itermbrowserplugin
 keepingyouawake
 latest
 line
+markdown preview
 mpv
 onedrive
 rightlang
 runcatneo
-safari.app -> ../system/cryptexes/app/system/applications/safari
+safari
 shottr
 stats
 telegram
 thaihub
 todoist
 transmission
+visual studio code
