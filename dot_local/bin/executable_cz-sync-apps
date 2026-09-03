@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ดึงค่า role ปัจจุบัน
-ROLE=$(chezmoi data | grep -o '"role": "[^"]*' | cut -d'"' -f4)
+ROLE=$(chezmoi execute-template '{{ .role }}')
 BREW_DIR="$(chezmoi source-path)/dot_config/brew"
 
 if [[ -z "$ROLE" ]]; then

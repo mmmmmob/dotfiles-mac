@@ -1,0 +1,61 @@
+1password
+1password for safari
+adguard mini
+alttab
+antigravity ide
+anydesk
+betterdisplay
+blip
+boringnotch
+brave browser
+bruno
+canva
+chequered
+clipy
+coconutbattery
+command x
+dbeaver
+delete apps
+discord
+duckduckgo privacy for safari
+edrmainui
+extractor
+feedly
+fork
+gemini
+globalprotect
+google chrome
+google docs
+google drive
+google sheets
+google slides
+iterm
+itermbrowserplugin
+keyboardcleantool
+latest
+line
+logioptionsplus
+markdown preview
+microsoft excel
+microsoft powerpoint
+microsoft teams
+microsoft word
+mpv
+onedrive
+postman
+raycast
+rightlang
+runcatneo
+rustdesk
+safari
+shottr
+slack
+stats
+telegram
+todoist
+transmission
+trendmicrosecurity
+visual studio code
+vlc
+zed
+zoom.us
