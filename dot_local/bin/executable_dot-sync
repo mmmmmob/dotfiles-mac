@@ -1,29 +1,43 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# เซ็ต PATH ให้ครอบคลุม Apple Silicon Homebrew และคำสั่งส่วนตัว
+# ระบุ PATH ให้ครอบคลุมคำสั่งระบบ
 export PATH="/opt/homebrew/bin:/usr/local/bin:${HOME}/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 CZ_DIR="$(chezmoi source-path)"
+
+# ฟังก์ชันยิง macOS Notification
+notify() {
+  local msg="$1"
+  local subtitle="${2:-}"
+  osascript -e "display notification \"$msg\" with title \"Chezmoi Sync\" subtitle \"$subtitle\""
+}
+
+# ดักจับ Error หากขั้นตอนใดล้มเหลว
+trap 'notify "Sync failed! Check /tmp/dotsync.stderr.log" "Error"' ERR
 
 echo "==> [$(date '+%Y-%m-%d %H:%M:%S')] Starting dot-sync..."
 
 # 1. ดัมป์แอป
 cz-sync-apps
 
-# 2. Pull remote ล่าสุด
+# 2. Pull remote
 chezmoi git pull -- --autostash --rebase
+
+ROLE=$(chezmoi execute-template '{{ .role }}')
 
 # 3. Commit & Push ถ้ามีของใหม่
 if [[ -n $(git -C "$CZ_DIR" status --porcelain) ]]; then
-  ROLE=$(chezmoi execute-template '{{ .role }}')
   git -C "$CZ_DIR" add -A
   git -C "$CZ_DIR" commit -m "sync: $(date '+%Y-%m-%d %H:%M:%S') [${ROLE}] (auto)"
   git -C "$CZ_DIR" push
-  echo "==> Pushed updates successfully."
+  SYNC_MSG="Updated & pushed packages for ${ROLE}"
 else
-  echo "==> Nothing new to commit."
+  SYNC_MSG="No changes. System up to date (${ROLE})"
 fi
 
 # 4. Apply
 chezmoi apply
+
+# ยิงแจ้งเตือนเมื่อทำงานเสร็จสมบูรณ์
+notify "$SYNC_MSG" "Success"
