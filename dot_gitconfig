@@ -1,0 +1,45 @@
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[user]
+	name = Theppitak M.
+	email = 141404845+mmmmmob@users.noreply.github.com
+[core]
+	editor = code --wait
+	autocrlf = input
+  	pager = delta
+[diff]
+	tool = code
+  	colorMoved = default
+[merge]
+  	conflictstyle = diff3
+[difftool "code"]
+	cmd = "code --wait --diff $LOCAL $REMOTE"
+[color]
+	ui = auto
+[alias]
+	cm = commit -m
+  	cancel = checkout -- .
+	co = checkout
+	m = merge
+	l = log
+	r = reset
+  	s = status
+	a = add
+  	b = checkout -b
+  	h = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  	type = cat-file -t
+  	dump = cat-file -p
+  	cma = commit --amend -m
+  	cmano = commit --amend --no-edit
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+[interactive]
+    	diffFilter = delta --color-only
+[delta]
+    	navigate = true
+    	side-by-side = true

@@ -1,0 +1,179 @@
+# ==============================================================================
+# 1. Pre-init Hooks & Instant Prompt (MUST BE AT THE VERY TOP)
+# ==============================================================================
+# Powerlevel10k Instant Prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ==============================================================================
+# 2. Environment Variables & PATH Extensions
+# ==============================================================================
+
+# Homebrew Setup
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+# Core System PATH
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d "$PYENV_ROOT/shims" ]] && export PATH="$PYENV_ROOT/shims:$PATH"
+command -v pyenv &>/dev/null && eval "$(pyenv init -)"
+
+# Node / JS Package Managers (PNPM, NVM, Bun, Deno)
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+[ -f "$HOME/.deno/env" ] && . "$HOME/.deno/env"
+
+# Go
+if command -v go &>/dev/null; then
+  export PATH="$PATH:$(go env GOPATH)/bin"
+fi
+
+# UI / CLI App Settings
+export BAT_THEME="TwoDark"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+[[ -d "$PYENV_ROOT/shims" ]] && export PATH="$PYENV_ROOT/shims:$PATH"
+command -v pyenv &>/dev/null && eval "$(pyenv init -)"
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+
+# Added by Antigravity IDE
+export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+# ==============================================================================
+# 3. Oh My Zsh & Prompt Theme
+# ==============================================================================
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# SSH-Agent Plugin Configurations
+zstyle ':omz:plugins:ssh-agent' agent-forwarding yes
+zstyle ':omz:plugins:ssh-agent' identities id_ed25519 id_ed25519_gitlab
+zstyle ':omz:plugins:ssh-agent' lifetime 4h
+
+plugins=(git ssh-agent)
+
+source $ZSH/oh-my-zsh.sh
+
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Powerlevel10k Config
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ==============================================================================
+# 4. Completions & Integrations (FZF, Zoxide, TheFuck)
+# ==============================================================================
+# Initialize Zsh Completion Engine
+if (( ! $+functions[compinit] )); then
+  autoload -Uz compinit
+  compinit -C
+fi
+
+# Zoxide (Smart CD)
+if command -v zoxide &>/dev/null; then
+  unalias z 2>/dev/null
+  eval "$(zoxide init zsh)"
+fi
+
+# The Fuck
+command -v thefuck &>/dev/null && eval $(thefuck --alias)
+
+# FZF Configuration
+if command -v fzf &>/dev/null; then
+  eval "$(fzf --zsh)"
+
+  if command -v fd &>/dev/null; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
+  fi
+
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+  if command -v bat &>/dev/null; then
+    export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :50 {}'"
+  fi
+
+  [[ -f ~/.fzf-git.sh/fzf-git.sh ]] && source ~/.fzf-git.sh/fzf-git.sh
+fi
+
+# ==============================================================================
+# 5. Custom Functions
+# ==============================================================================
+# Smart CD: Uses native cd for local paths, falls back to Zoxide
+if command -v zoxide &>/dev/null; then
+  unalias cd 2>/dev/null
+  cd() {
+    if [ $# -eq 0 ]; then
+      builtin cd ~
+    elif [ -d "$1" ] || [ "$1" = "-" ] || [ "$1" = ".." ]; then
+      builtin cd "$1"
+    else
+      z "$@"
+    fi
+  }
+fi
+
+# GlobalProtect VPN Shortcut
+vpn-connect() {
+  local vpn_server="mfaetsslvpn.tcc-technology.com"
+  echo "Starting SAML Authentication..."
+  eval $(gp-saml-gui -g --no-verify --allow-insecure-crypto --clientos=Windows "$vpn_server") && \
+  echo "$COOKIE" | sudo openconnect --protocol=gp \
+    --allow-insecure-crypto \
+    --useragent='PAN GlobalProtect' \
+    --user="$USER" \
+    --os=win \
+    --usergroup=gateway:prelogin-cookie \
+    --passwd-on-stdin "$vpn_server"
+}
+
+# ==============================================================================
+# 6. Aliases & Tool Overrides
+# ==============================================================================
+# Modern Alternatives (bat, fd, eza)
+command -v bat &>/dev/null && alias cat='bat'
+command -v fd &>/dev/null && alias find='fd'
+
+if command -v eza &>/dev/null; then
+  alias ls="eza --icons --group-directories-first"
+  alias ll="eza -lh --icons --group-directories-first"
+  alias la="eza -lah --icons --group-directories-first"
+fi
+
+# Shortcuts & Utilities
+alias top="htop"
+alias ports="lsof -i -P -n | grep LISTEN"
+alias cls="clear"
+
+# Lazy Tools
+command -v lazygit &>/dev/null && alias lg="lazygit"
+command -v lazydocker &>/dev/null && alias ld="lazydocker"
+
+# chezmoi alias for syncing dotfiles
+alias dot='chezmoi apply && cd ~/.local/share/chezmoi && git add -A && git commit -m "sync: $(date "+%F %T")" && git push'

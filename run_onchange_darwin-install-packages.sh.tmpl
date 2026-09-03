@@ -5,4 +5,4 @@ set -euo pipefail
 # Brewfile hash: {{ include (printf "dot_config/brew/Brewfile.%s" .role) | sha256sum }}
 
 echo "==> Syncing Homebrew packages for role: {{ .role }}..."
-brew bundle --no-lock --file="${HOME}/.config/brew/Brewfile.{{ .role }}"
+brew bundle --file="${HOME}/.config/brew/Brewfile.{{ .role }}"
