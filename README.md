@@ -158,6 +158,7 @@ chezmoi apply
 
 - ระบบ **launchd** จะสั่งรัน `dot-sync` ทุกวันเวลา **19:00 น.** (หรือทันทีที่ปลุกเครื่องหากเครื่องหลับอยู่)
 - ตรวจสอบผลการทำงานย้อนหลังได้ที่:
+
   ```bash
   cat /tmp/dotsync.stdout.log
   cat /tmp/dotsync.stderr.log
@@ -186,12 +187,15 @@ chezmoi update
 ### เมื่อแก้ไข Dotfiles กลาง (`~/.zshrc`, `~/.gitconfig`)
 
 - **วิธีแก้ผ่าน chezmoi:**
+
   ```bash
   chezmoi edit ~/.zshrc
   chezmoi apply
   chezmoi cd && git commit -am "Update zshrc" && git push origin main && exit
   ```
+
 - **วิธีแก้ไฟล์ในเครื่องตรงๆ:**
+
   ```bash
   chezmoi re-add ~/.zshrc
   chezmoi cd && git commit -am "Update zshrc" && git push origin main && exit
@@ -257,24 +261,10 @@ cat ~/.config/brew/manual-apps.$(chezmoi execute-template '{{ .role }}').txt
 
 _(ทดสอบยิง service ทำงานทันทีด้วย: `launchctl kickstart -k gui/$(id -u)/com.user.dotsync`)_
 
-### สเต็ป 4: ตรวจสอบและลงแอปนอก Brew Store
+### ตรวจสอบแอปนอก Brew Store หลังติดตั้ง
 
 เปิดดูแอปที่ต้องติดตั้งแบบ Manual:
 
 ```bash
 cat ~/.config/brew/manual-apps.$(chezmoi execute-template '{{ .role }}').txt
 ```
-
----
-
-## 5. สรุปคำสั่งสำคัญ (Cheat Sheet)
-
-| คำสั่ง                                                 | หน้าที่การทำงาน                                             |
-| :----------------------------------------------------- | :---------------------------------------------------------- |
-| `dot-sync`                                             | รัน Dump apps + Pull + Push Git + Apply ครบวงจร             |
-| `cz-sync-apps`                                         | ดัมป์ Brewfile และ manual-apps ลง chezmoi source อย่างเดียว |
-| `chezmoi update`                                       | Pull ข้อมูลล่าสุดจาก Git + Apply ลงเครื่องปัจจุบัน          |
-| `chezmoi diff`                                         | ดูความต่างระหว่างไฟล์ใน Repo กับไฟล์จริงบนเครื่องก่อน apply |
-| `chezmoi edit-config`                                  | แก้ไข Role ของเครื่องปัจจุบัน (`personal` หรือ `work`)      |
-| `chezmoi cd`                                           | สลับเข้าสู่โฟลเดอร์ต้นทางของ chezmoi เพื่อจัดการ Git โดยตรง |
-| `launchctl kickstart -k gui/$(id -u)/com.user.dotsync` | สั่งให้ launchd ทำงานทันทีโดยไม่ต้องรอเวลา                  |
