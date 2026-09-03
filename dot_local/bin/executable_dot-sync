@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# เซ็ต PATH ให้ครอบคลุม Apple Silicon Homebrew และคำสั่งส่วนตัว
+export PATH="/opt/homebrew/bin:/usr/local/bin:${HOME}/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+CZ_DIR="$(chezmoi source-path)"
+
+echo "==> [$(date '+%Y-%m-%d %H:%M:%S')] Starting dot-sync..."
+
+# 1. ดัมป์แอป
+cz-sync-apps
+
+# 2. Pull remote ล่าสุด
+chezmoi git pull -- --autostash --rebase
+
+# 3. Commit & Push ถ้ามีของใหม่
+if [[ -n $(git -C "$CZ_DIR" status --porcelain) ]]; then
+  ROLE=$(chezmoi execute-template '{{ .role }}')
+  git -C "$CZ_DIR" add -A
+  git -C "$CZ_DIR" commit -m "sync: $(date '+%Y-%m-%d %H:%M:%S') [${ROLE}] (auto)"
+  git -C "$CZ_DIR" push
+  echo "==> Pushed updates successfully."
+else
+  echo "==> Nothing new to commit."
+fi
+
+# 4. Apply
+chezmoi apply

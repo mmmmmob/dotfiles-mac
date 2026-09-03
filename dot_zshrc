@@ -174,28 +174,3 @@ alias cls="clear"
 # Lazy Tools
 command -v lazygit &>/dev/null && alias lg="lazygit"
 command -v lazydocker &>/dev/null && alias ld="lazydocker"
-
-# chezmoi alias for syncing app lists
-dot-sync() {
-  echo "==> [1/4] Dumping latest apps & brew packages..."
-  cz-sync-apps
-
-  echo "==> [2/4] Pulling remote updates..."
-  chezmoi git pull -- --autostash --rebase
-
-  echo "==> [3/4] Committing changes (if any)..."
-  local cz_dir
-  cz_dir="$(chezmoi source-path)"
-  
-  if [[ -n $(git -C "$cz_dir" status --porcelain) ]]; then
-    git -C "$cz_dir" add -A
-    git -C "$cz_dir" commit -m "sync: $(date '+%Y-%m-%d %H:%M:%S') [$(chezmoi execute-template '{{ .role }}')]"
-    git -C "$cz_dir" push
-    echo "==> Pushed updates successfully."
-  else
-    echo "==> Nothing new to commit."
-  fi
-
-  echo "==> [4/4] Applying changes locally..."
-  chezmoi apply
-}
