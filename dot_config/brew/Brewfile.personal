@@ -76,6 +76,8 @@ cask "keycastr"
 cask "markdown-preview"
 # Replacement for Docker Desktop
 cask "orbstack"
+# Easy to use Disk Cleanup Tools
+cask "prettyclean"
 # Control your tools with a few keystrokes
 cask "raycast"
 # Menu bar app for USB-C cable diagnostics
