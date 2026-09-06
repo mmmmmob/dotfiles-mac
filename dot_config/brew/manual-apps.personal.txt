@@ -20,6 +20,7 @@ google docs
 google drive
 google sheets
 google slides
+her story
 iterm
 itermbrowserplugin
 keepingyouawake
@@ -28,12 +29,15 @@ line
 markdown preview
 mpv
 onedrive
+postal 2
 postman
 rightlang
 runcatneo
 safari
 shottr
 stats
+steam
+storyteller
 telegram
 todoist
 transmission
