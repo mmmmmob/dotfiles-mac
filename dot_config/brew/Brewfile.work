@@ -78,6 +78,8 @@ cask "keycastr"
 cask "markdown-preview"
 # Replacement for Docker Desktop
 cask "orbstack"
+# Easy to use Disk Cleanup Tools
+cask "prettyclean"
 # Menu bar app for USB-C cable diagnostics
 cask "darrylmorley/whatcable/whatcable", trusted: true
 vscode "aaron-bond.better-comments"

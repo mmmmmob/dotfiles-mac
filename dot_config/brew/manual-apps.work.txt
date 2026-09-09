@@ -16,6 +16,7 @@ coconutbattery
 command x
 dbeaver
 delete apps
+developer
 discord
 duckduckgo privacy for safari
 edrmainui
@@ -57,5 +58,7 @@ transmission
 trendmicrosecurity
 visual studio code
 vlc
+xcformat
+xcode-beta
 zed
 zoom.us
