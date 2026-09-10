@@ -11,6 +11,7 @@ clipy
 command x
 dbeaver
 delete apps
+docker
 extractor
 feedly
 fork

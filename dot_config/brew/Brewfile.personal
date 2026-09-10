@@ -76,8 +76,6 @@ cask "keyboardcleantool"
 cask "keycastr"
 # Markdown previewer with bundled Quick Look extension
 cask "markdown-preview"
-# Replacement for Docker Desktop
-cask "orbstack"
 # Easy to use Disk Cleanup Tools
 cask "prettyclean"
 # Control your tools with a few keystrokes
