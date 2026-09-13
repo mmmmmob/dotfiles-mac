@@ -9,7 +9,7 @@ canva
 chequered
 clipy
 command x
-dbeaver
+dbx
 delete apps
 docker
 extractor
