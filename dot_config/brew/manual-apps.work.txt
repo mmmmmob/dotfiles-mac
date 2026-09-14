@@ -2,7 +2,6 @@
 1password for safari
 adguard mini
 alttab
-antigravity ide
 anydesk
 betterdisplay
 blip
@@ -14,10 +13,11 @@ chequered
 clipy
 coconutbattery
 command x
-dbeaver
+dbx
 delete apps
 developer
 discord
+docker
 duckduckgo privacy for safari
 edrmainui
 extractor
@@ -58,7 +58,7 @@ transmission
 trendmicrosecurity
 visual studio code
 vlc
-xcformat
+xcode
 xcode-beta
 zed
 zoom.us
