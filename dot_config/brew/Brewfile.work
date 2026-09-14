@@ -5,6 +5,8 @@ brew "bat"
 brew "bun"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Cloudflare-based speed test with optional TUI
+brew "cloudflare-speed-cli"
 # Cloudflare Tunnel client (formerly Argo Tunnel)
 brew "cloudflared"
 # Secure runtime for JavaScript and TypeScript
