@@ -22,6 +22,7 @@ duckduckgo privacy for safari
 edrmainui
 extractor
 feedly
+figma
 fork
 gemini
 globalprotect
@@ -49,6 +50,7 @@ rightlang
 runcatneo
 rustdesk
 safari
+sf symbols
 shottr
 slack
 stats
@@ -59,6 +61,5 @@ trendmicrosecurity
 visual studio code
 vlc
 xcode
-xcode-beta
 zed
 zoom.us
