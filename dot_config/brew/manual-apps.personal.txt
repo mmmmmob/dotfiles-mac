@@ -11,6 +11,7 @@ clipy
 command x
 dbx
 delete apps
+developer
 docker
 extractor
 feedly
@@ -43,3 +44,4 @@ telegram
 todoist
 transmission
 visual studio code
+xcode
