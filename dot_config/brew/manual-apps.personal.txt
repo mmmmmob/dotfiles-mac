@@ -12,6 +12,7 @@ command x
 dbx
 delete apps
 developer
+discord
 docker
 extractor
 feedly
