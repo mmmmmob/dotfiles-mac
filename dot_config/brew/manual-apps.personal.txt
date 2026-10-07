@@ -32,6 +32,7 @@ latest
 line
 markdown preview
 mpv
+obsidian
 onedrive
 postal 2
 postman
