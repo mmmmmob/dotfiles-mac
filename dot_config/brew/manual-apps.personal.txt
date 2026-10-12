@@ -32,6 +32,7 @@ latest
 line
 markdown preview
 mpv
+netnewswire
 obsidian
 onedrive
 postal 2
