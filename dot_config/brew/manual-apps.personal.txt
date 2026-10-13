@@ -16,7 +16,6 @@ developer
 discord
 docker
 extractor
-feedly
 fork
 gemini
 google chrome
