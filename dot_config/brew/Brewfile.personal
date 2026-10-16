@@ -76,6 +76,8 @@ cask "font-jetbrains-mono-nerd-font"
 cask "keyboardcleantool"
 # Open-source keystroke visualiser
 cask "keycastr"
+# Archive manager
+cask "macpacker"
 # Markdown previewer with bundled Quick Look extension
 cask "markdown-preview"
 # Easy to use Disk Cleanup Tools

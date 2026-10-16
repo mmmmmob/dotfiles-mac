@@ -2,6 +2,7 @@
 1password for safari
 adguard mini
 alttab
+antigravity
 antigravity ide
 antivirus survivors 2003 professional
 blip
@@ -15,7 +16,6 @@ delete apps
 developer
 discord
 docker
-extractor
 fork
 gemini
 google chrome
